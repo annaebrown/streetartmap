@@ -1,0 +1,34 @@
+{
+  "name": "maps_project",
+  "version": "1.0.0",
+  "description": "Street Art Map",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack -w & nodemon ./server/index.js"
+  },
+  "author": "Anna Brown",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "eslint-plugin-react": "^6.9.0",
+    "google-maps-react": "^1.0.19",
+    "nodemon": "^1.11.0",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
+    "react-dom": "^15.4.2",
+    "react-google-maps": "^6.0.1",
+    "webpack": "^1.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-plugin-react": "^6.9.0",
+    "google-map-react": "^0.22.3",
+    "node-sass": "^4.1.1",
+    "nodemon": "^1.11.0"
+  }
+}
