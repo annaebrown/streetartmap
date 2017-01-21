@@ -14,9 +14,9 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	console.log('body', req.body)
-	Marker.create(req.body)
+	Marker.create({latitude: req.body.latitude, longitude: req.body.longitude })
 	.then(marker => {
-		return Promise.all(Marker.findAll({}))
+		return Marker.findAll({})
 	})
 	.then(markers => {
 		res.send(markers)

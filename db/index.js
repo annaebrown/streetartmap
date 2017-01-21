@@ -1,15 +1,13 @@
 var Sequelize = require('sequelize');
 
-var db = new Sequelize('postgres://localhost:5432/stackathon', { 
-    logging: false 
-})
+var db = new Sequelize('postgres://localhost:5432/stackathon')
 
 var Marker = db.define('marker', {
 	latitude: {
-		type: Sequelize.INTEGER
+		type: Sequelize.DECIMAL
 	},
 	longitude: {
-		type: Sequelize.INTEGER
+		type: Sequelize.DECIMAL
 	},
 	infoContent: {
 		type: Sequelize.TEXT
@@ -20,4 +18,4 @@ var Marker = db.define('marker', {
 	}
 })
 
-module.exports = Marker;
+module.exports = {Marker};

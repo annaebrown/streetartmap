@@ -2,7 +2,7 @@
 var path = require('path');
 var express = require('express');
 var app = express();
-const db = require('../db')
+const Marker = require('../db').Marker
 const bodyParser = require('body-parser');
 
 module.exports = app;
@@ -25,10 +25,10 @@ app.use ((err, req, res, next) => {
     res.status(err.status || 500).send(err.message || 'Internal server error.');
 });
 
-app.listen(3000, () => {
-  console.log('Server listening on port', 3000);
-  db.sync({})
+Marker.sync({})
   .then(() => {
+  	app.listen(3000, () => {
+  	 console.log('Server listening on port', 3000);
 	 console.log('Oh and btw the postgres server is totally connected, too');
   })
 })
