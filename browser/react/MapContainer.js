@@ -150,7 +150,7 @@ export default class MainMap extends Component {
         return {
           id: markerObject.id,
           position: latLng,
-          content: content
+          infoContent: content
         }
       })
       this.setState({

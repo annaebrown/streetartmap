@@ -21508,7 +21508,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _InitialMap = __webpack_require__(179);
+	var _InitialMap = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./InitialMap.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _InitialMap2 = _interopRequireDefault(_InitialMap);
 	
@@ -21688,7 +21688,7 @@
 	          return {
 	            id: markerObject.id,
 	            position: latLng,
-	            content: content
+	            infoContent: content
 	          };
 	        });
 	        _this5.setState({
@@ -21732,78 +21732,7 @@
 	exports.default = MainMap;
 
 /***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _lodash = __webpack_require__(180);
-	
-	var _lodash2 = _interopRequireDefault(_lodash);
-	
-	var _axios = __webpack_require__(182);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactBootstrap = __webpack_require__(207);
-	
-	var _reactHelmet = __webpack_require__(459);
-	
-	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
-	
-	var _reactGoogleMaps = __webpack_require__(471);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var InitialMap = (0, _reactGoogleMaps.withGoogleMap)(function (props) {
-	
-	  // const markers = props.markers;
-	
-	  return _react2.default.createElement(
-	    _reactGoogleMaps.GoogleMap,
-	    {
-	      ref: props.onMapLoad,
-	      defaultZoom: 14,
-	      defaultCenter: { lat: 40.6944, lng: -73.9213 },
-	      onClick: props.onMapClick
-	    },
-	    props.markers.map(function (marker, index) {
-	      return _react2.default.createElement(
-	        _reactGoogleMaps.Marker,
-	        {
-	          key: index,
-	          position: marker.position,
-	          onClick: function onClick() {
-	            return props.onMarkerClick(marker);
-	          }
-	        },
-	        marker.showInfo && _react2.default.createElement(
-	          _reactGoogleMaps.InfoWindow,
-	          { onCloseClick: function onCloseClick() {
-	              return props.onMarkerClose(marker);
-	            } },
-	          _react2.default.createElement(
-	            "div",
-	            null,
-	            marker.infoContent
-	          )
-	        )
-	      );
-	    })
-	  );
-	});
-	
-	exports.default = InitialMap;
-
-/***/ },
+/* 179 */,
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 

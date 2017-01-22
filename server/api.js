@@ -35,12 +35,12 @@ router.put('/', (req, res, next) => {
 		}
 	})
 	.then((marker) => {
-		marker.update({
+		return marker.update({
 			content: req.body.content
 		})
 	})
 	.then((updatedMarker) => {
-		Marker.findAll({})
+		return Marker.findAll({})
 	})
 	.then((markers) => {
 		res.send(markers)
