@@ -1,3 +1,7 @@
+.navbar {
+	background-color: #efe9e4;
+	font-family: "Lucida Console"
+}
 .container {
 	text-align: center;
 	width: 100% !important;
@@ -9,4 +13,17 @@
 
 .glyphicon {
 	display: inline-block;
+	color: #e85113;
+	font-size:20px;
+}
+
+label {
+	font-size:15px;
+}
+input {
+	border-radius:4px;
+	width: 100%;
+	padding: 8px 15px;
+	margin-bottom:12px !important;
+    box-sizing: border-box;
 }

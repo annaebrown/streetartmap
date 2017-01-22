@@ -21579,6 +21579,7 @@
 	      // this._mapComponent = map;
 	      _axios2.default.get('/api').then(function (response) {
 	        var markerData = response.data;
+	        console.log(response.data);
 	        var nextMarkers = markerData.map(function (markerObject) {
 	          var latLng = { lat: Number(markerObject.latitude), lng: Number(markerObject.longitude) };
 	          var content = markerObject.content ? markerObject.content : null;
@@ -21668,15 +21669,24 @@
 	      this.setState({
 	        markers: this.state.markers.map(function (marker) {
 	          if (marker === targetMarker) marker.showInfo = true;
-	          if (!marker.infoContent) {
-	            marker.infoContent = _react2.default.createElement(
+	          if (!marker.content) {
+	            marker.content = _react2.default.createElement(
 	              'form',
 	              { onSubmit: function onSubmit(event) {
 	                  console.log(event, marker.id);
 	                  _this4.updatingContent(_this4.state.formValue, marker.id);
 	                } },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Description:'
+	              ),
 	              _react2.default.createElement('input', { type: 'text', onChange: _this4.handleChange }),
-	              _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+	              _react2.default.createElement(
+	                _reactBootstrap.Button,
+	                { type: 'submit' },
+	                'Submit'
+	              )
 	            );
 	          }
 	          console.log(marker);
@@ -21697,7 +21707,7 @@
 	          return {
 	            id: markerObject.id,
 	            position: latLng,
-	            infoContent: content
+	            content: content
 	          };
 	        });
 	        _this5.setState({
@@ -21805,7 +21815,7 @@
 	          _react2.default.createElement(
 	            "div",
 	            null,
-	            marker.infoContent
+	            marker.content
 	          )
 	        )
 	      );
@@ -70304,20 +70314,49 @@
 	
 	var styles = {
 		'color': '#19a0d8',
-		'fontSize': '30px'
+		'fontSize': '35px',
+		'display': 'inline-block'
 	};
 	
 	var NavBar = function NavBar(props) {
 		return _react2.default.createElement(
 			_reactBootstrap.Navbar,
 			{ fixedTop: true },
-			_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'star' }),
+			_react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'flash' })
+			),
+			_react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'flash' })
+			),
+			_react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'flash' })
+			),
 			_react2.default.createElement(
 				_reactBootstrap.Navbar.Text,
 				{ style: styles },
 				'Bushwick Street Art Map'
 			),
-			_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'star' })
+			_react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'flash' })
+			),
+			_react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'flash' })
+			),
+			_react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'flash' })
+			)
 		);
 	};
 	
