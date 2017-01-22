@@ -21557,7 +21557,8 @@
 	    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
 	    _this.handleMarkerClose = _this.handleMarkerClose.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
+	    // this.handleFormSubmit = this.handleFormSubmit.bind(this);
+	    _this.updatingContent = _this.updatingContent.bind(_this);
 	    return _this;
 	  }
 	
@@ -21571,9 +21572,11 @@
 	        var markerData = response.data;
 	        var nextMarkers = markerData.map(function (markerObject) {
 	          var latLng = { lat: Number(markerObject.latitude), lng: Number(markerObject.longitude) };
+	          var content = markerObject.content ? markerObject.content : null;
 	          return {
+	            id: markerObject.id,
 	            position: latLng,
-	            showInfo: markerObject.hasContent
+	            content: content
 	          };
 	        });
 	        _this2.setState({
@@ -21591,11 +21594,14 @@
 	
 	      _axios2.default.post('/api', { 'latitude': lat, 'longitude': lng }).then(function (response) {
 	        var markerData = response.data;
+	        console.log(response.data);
 	        var nextMarkers = markerData.map(function (markerObject) {
 	          var latLng = { lat: Number(markerObject.latitude), lng: Number(markerObject.longitude) };
+	          var content = markerObject.content ? markerObject.content : null;
 	          return {
+	            id: markerObject.id,
 	            position: latLng,
-	            showInfo: markerObject.hasContent
+	            content: content
 	          };
 	        });
 	        _this3.setState({
@@ -21603,12 +21609,33 @@
 	        });
 	      });
 	    }
-	  }, {
-	    key: 'handleFormSubmit',
-	    value: function handleFormSubmit(event) {
-	      console.log('event value', this.state.formValue);
-	      event.preventDefault();
-	    }
+	
+	    // handleFormSubmit(event) {
+	    //   console.log('event value', this.state.formValue)
+	    //   console.log(event)
+	    //   event.preventDefault();
+	
+	    //   const value = this.state.formValue;
+	    //   axios.post('/api', {content: value})
+	    //   .then(response => {
+	    //     const markerData = response.data;
+	    //     const nextMarkers = markerData.map(markerObject => {
+	    //       const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
+	    //       const content = markerObject.content ? markerObject.content : null
+	    //       return {
+	    //         id: markerObject.id,
+	    //         position: latLng,
+	    //         content: content
+	    //       }
+	    //   })
+	    //     this.setState({
+	    //       markers: nextMarkers
+	    //     })
+	    //     console.log(this.state.markers)
+	    //   })
+	
+	    // }
+	
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(event) {
@@ -21627,11 +21654,46 @@
 	  }, {
 	    key: 'handleMarkerClick',
 	    value: function handleMarkerClick(targetMarker) {
+	      var _this4 = this;
+	
 	      this.setState({
 	        markers: this.state.markers.map(function (marker) {
 	          if (marker === targetMarker) marker.showInfo = true;
+	          if (!marker.infoContent) {
+	            marker.infoContent = _react2.default.createElement(
+	              'form',
+	              { onSubmit: function onSubmit(event) {
+	                  console.log(event, marker.id);
+	                  _this4.updatingContent(_this4.state.formValue, marker.id);
+	                } },
+	              _react2.default.createElement('input', { type: 'text', onChange: _this4.handleChange }),
+	              _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+	            );
+	          }
+	          console.log(marker);
 	          return marker;
 	        })
+	      });
+	    }
+	  }, {
+	    key: 'updatingContent',
+	    value: function updatingContent(content, markerId) {
+	      var _this5 = this;
+	
+	      _axios2.default.put('/api', { content: content, id: markerId }).then(function (response) {
+	        var markerData = response.data;
+	        var nextMarkers = markerData.map(function (markerObject) {
+	          var latLng = { lat: Number(markerObject.latitude), lng: Number(markerObject.longitude) };
+	          var content = markerObject.content ? markerObject.content : null;
+	          return {
+	            id: markerObject.id,
+	            position: latLng,
+	            content: content
+	          };
+	        });
+	        _this5.setState({
+	          markers: nextMarkers
+	        });
 	      });
 	    }
 	  }, {

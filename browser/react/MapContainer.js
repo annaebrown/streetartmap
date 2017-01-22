@@ -32,7 +32,8 @@ export default class MainMap extends Component {
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleMarkerClose = this.handleMarkerClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    // this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.updatingContent = this.updatingContent.bind(this);
   }
 
 
@@ -43,9 +44,11 @@ export default class MainMap extends Component {
         const markerData = response.data;
         const nextMarkers = markerData.map(markerObject => {
           const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
+          const content = markerObject.content ? markerObject.content : null
           return {
-            position: latLng,
-            showInfo: markerObject.hasContent
+          id: markerObject.id,
+          position: latLng,
+          content: content
           }
       })
       this.setState({
@@ -62,11 +65,14 @@ export default class MainMap extends Component {
     axios.post('/api', {'latitude': lat, 'longitude': lng})
       .then(response => {
         const markerData = response.data;
+        console.log(response.data)
         const nextMarkers = markerData.map(markerObject => {
           const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
+          const content = markerObject.content ? markerObject.content : null
           return {
-            position: latLng,
-            showInfo: markerObject.hasContent
+          id: markerObject.id,
+          position: latLng,
+          content: content
           }
       })
       this.setState({
@@ -75,12 +81,31 @@ export default class MainMap extends Component {
     })
   }
 
+  // handleFormSubmit(event) {
+  //   console.log('event value', this.state.formValue)
+  //   console.log(event)
+  //   event.preventDefault();
 
-  handleFormSubmit(event) {
-  console.log('event value', this.state.formValue)
-  event.preventDefault();
+  //   const value = this.state.formValue;
+  //   axios.post('/api', {content: value})
+  //   .then(response => {
+  //     const markerData = response.data;
+  //     const nextMarkers = markerData.map(markerObject => {
+  //       const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
+  //       const content = markerObject.content ? markerObject.content : null
+  //       return {
+  //         id: markerObject.id,
+  //         position: latLng,
+  //         content: content
+  //       }
+  //   })
+  //     this.setState({
+  //       markers: nextMarkers
+  //     })
+  //     console.log(this.state.markers)
+  //   })
 
-  }
+  // }
 
   handleChange(event) {
   	this.setState({formValue: event.target.value})
@@ -98,10 +123,41 @@ export default class MainMap extends Component {
      this.setState({
        markers: this.state.markers.map(marker => {
          if (marker === targetMarker) marker.showInfo = true
+         if (!marker.infoContent) {
+          marker.infoContent = (
+            <form onSubmit={(event) => {
+              console.log(event, marker.id)
+              this.updatingContent(this.state.formValue, marker.id)
+            }}>
+              <input type="text" onChange={this.handleChange}/>
+              <input type="submit" value="Submit"/>
+            </form>
+            )
+         }
+         console.log(marker)
          return marker;
-       })
-    })
-  }
+      })
+  })
+}
+
+ updatingContent(content, markerId) {
+  axios.put('/api', {content: content, id: markerId})
+  .then(response => {
+      const markerData = response.data;
+      const nextMarkers = markerData.map(markerObject => {
+        const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
+        const content = markerObject.content ? markerObject.content : null
+        return {
+          id: markerObject.id,
+          position: latLng,
+          content: content
+        }
+      })
+      this.setState({
+        markers: nextMarkers
+      })
+   })
+ }
 
 	handleMarkerClose(targetMarker) {
 	 this.setState({

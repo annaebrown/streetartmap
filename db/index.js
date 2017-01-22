@@ -9,12 +9,8 @@ var Marker = db.define('marker', {
 	longitude: {
 		type: Sequelize.DECIMAL
 	},
-	infoContent: {
+	content: {
 		type: Sequelize.TEXT
-	},
-	hasContent: {
-		type: Sequelize.BOOLEAN,
-		defaultValue: false
 	}
 })
 
