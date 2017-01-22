@@ -16,8 +16,6 @@ import {
   Marker,
 } from "react-google-maps";
 
-import 
-
 const InitialMap = withGoogleMap(props => {
 
 // const markers = props.markers;

@@ -58,9 +58,18 @@
 	
 	var _MapContainer2 = _interopRequireDefault(_MapContainer);
 	
+	var _Navbar = __webpack_require__(691);
+	
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(_MapContainer2.default, null), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(_Navbar2.default, null),
+		_react2.default.createElement(_MapContainer2.default, null)
+	), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -21508,7 +21517,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _InitialMap = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./InitialMap.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _InitialMap = __webpack_require__(179);
 	
 	var _InitialMap2 = _interopRequireDefault(_InitialMap);
 	
@@ -21732,7 +21741,81 @@
 	exports.default = MainMap;
 
 /***/ },
-/* 179 */,
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _lodash = __webpack_require__(180);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _axios = __webpack_require__(182);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactBootstrap = __webpack_require__(207);
+	
+	var _reactHelmet = __webpack_require__(459);
+	
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+	
+	var _reactGoogleMaps = __webpack_require__(471);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var InitialMap = (0, _reactGoogleMaps.withGoogleMap)(function (props) {
+	
+	  // const markers = props.markers;
+	
+	  var fancyStyles = [{ "featureType": "water", "stylers": [{ "color": "#19a0d8" }] }, { "featureType": "administrative", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }, { "weight": 6 }] }, { "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#e85113" }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#efe9e4" }, { "lightness": -40 }] }, { "featureType": "road.arterial", "elementType": "geometry.stroke", "stylers": [{ "color": "#efe9e4" }, { "lightness": -20 }] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [{ "lightness": 100 }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "lightness": -100 }] }, { "featureType": "road.highway", "elementType": "labels.icon" }, { "featureType": "landscape", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape", "stylers": [{ "lightness": 20 }, { "color": "#efe9e4" }] }, { "featureType": "landscape.man_made", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "labels.text.stroke", "stylers": [{ "lightness": 100 }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "lightness": -100 }] }, { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [{ "hue": "#11ff00" }] }, { "featureType": "poi", "elementType": "labels.text.stroke", "stylers": [{ "lightness": 100 }] }, { "featureType": "poi", "elementType": "labels.icon", "stylers": [{ "hue": "#4cff00" }, { "saturation": 58 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "color": "#f0e4d3" }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#efe9e4" }, { "lightness": -25 }] }, { "featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{ "color": "#efe9e4" }, { "lightness": -10 }] }, { "featureType": "poi", "elementType": "labels", "stylers": [{ "visibility": "simplified" }] }];
+	
+	  return _react2.default.createElement(
+	    _reactGoogleMaps.GoogleMap,
+	    {
+	      ref: props.onMapLoad,
+	      defaultZoom: 14,
+	      defaultCenter: { lat: 40.6944, lng: -73.9213 },
+	      onClick: props.onMapClick,
+	      defaultOptions: { styles: fancyStyles }
+	    },
+	    props.markers.map(function (marker, index) {
+	      return _react2.default.createElement(
+	        _reactGoogleMaps.Marker,
+	        {
+	          key: index,
+	          position: marker.position,
+	          onClick: function onClick() {
+	            return props.onMarkerClick(marker);
+	          }
+	        },
+	        marker.showInfo && _react2.default.createElement(
+	          _reactGoogleMaps.InfoWindow,
+	          { onCloseClick: function onCloseClick() {
+	              return props.onMarkerClose(marker);
+	            } },
+	          _react2.default.createElement(
+	            "div",
+	            null,
+	            marker.infoContent
+	          )
+	        )
+	      );
+	    })
+	  );
+	});
+	
+	exports.default = InitialMap;
+
+/***/ },
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -70200,6 +70283,45 @@
 	
 	module.exports = isIterateeCall;
 
+
+/***/ },
+/* 691 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactBootstrap = __webpack_require__(207);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var styles = {
+		'color': '#19a0d8',
+		'fontSize': '30px'
+	};
+	
+	var NavBar = function NavBar(props) {
+		return _react2.default.createElement(
+			_reactBootstrap.Navbar,
+			{ fixedTop: true },
+			_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'star' }),
+			_react2.default.createElement(
+				_reactBootstrap.Navbar.Text,
+				{ style: styles },
+				'Bushwick Street Art Map'
+			),
+			_react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'star' })
+		);
+	};
+	
+	exports.default = NavBar;
 
 /***/ }
 /******/ ]);

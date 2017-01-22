@@ -1,0 +1,12 @@
+.container {
+	text-align: center;
+	width: 100% !important;
+}
+
+.container .navbar-text {
+	float: none;
+}
+
+.glyphicon {
+	display: inline-block;
+}

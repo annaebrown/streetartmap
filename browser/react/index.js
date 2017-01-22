@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import MainMap from './MapContainer.js';
+import NavBar from './Navbar.jsx';
 
 ReactDOM.render(
-	<MainMap/>,
+	<div>
+		<NavBar/>
+		<MainMap/>
+	</div>
+	,
   	document.getElementById('app')
 );

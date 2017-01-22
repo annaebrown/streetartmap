@@ -1,17 +1,19 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Glyphicon } from 'react-bootstrap';
 
 const styles = {
+	'color' : '#19a0d8',
 	'fontSize' : '30px'
 }
 
+
 const NavBar = (props) => (
 		<Navbar fixedTop={true}>
-			<Navbar.Header>
-			    <Navbar.Brand>
-			        <p style = {styles}>Bushwick Street Art Map</p>
-			    </Navbar.Brand>
-			</Navbar.Header>
+				<Glyphicon glyph="star"/>
+				    <Navbar.Text style = {styles}>
+				        Bushwick Street Art Map
+				    </Navbar.Text>
+			    <Glyphicon glyph="star" />
 		</Navbar>
 	)
 
