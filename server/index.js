@@ -25,7 +25,7 @@ app.use ((err, req, res, next) => {
     res.status(err.status || 500).send(err.message || 'Internal server error.');
 });
 
-Marker.sync({force: true})
+Marker.sync()
   .then(() => {
   	app.listen(3000, () => {
   	 console.log('Server listening on port', 3000);
