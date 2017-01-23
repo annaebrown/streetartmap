@@ -3,17 +3,22 @@ import { Navbar, Glyphicon } from 'react-bootstrap';
 
 const styles = {
 	'color' : '#19a0d8',
-	'fontSize' : '30px'
+	'fontSize' : '35px',
+	'display': 'inline-block'
 }
 
 
 const NavBar = (props) => (
 		<Navbar fixedTop={true}>
-				<Glyphicon glyph="star"/>
+				<span><Glyphicon glyph="flash"/></span>
+				<span><Glyphicon glyph="flash"/></span>
+				<span><Glyphicon glyph="flash"/></span>
 				    <Navbar.Text style = {styles}>
 				        Bushwick Street Art Map
 				    </Navbar.Text>
-			    <Glyphicon glyph="star" />
+			    <span><Glyphicon glyph="flash" /></span>
+			    <span><Glyphicon glyph="flash"/></span>
+			    <span><Glyphicon glyph="flash"/></span>
 		</Navbar>
 	)
 

@@ -58,7 +58,9 @@ return (
         >
           {marker.showInfo && (
             <InfoWindow onCloseClick={() => props.onMarkerClose(marker)}>
-              <div>{marker.infoContent}</div>
+              {
+                marker.imageUrl ? <div id="infowindow"><img src = {marker.imageUrl}/><p id="description">{marker.content}</p></div> : <div>{marker.content}</div>
+              }
             </InfoWindow>
           )}
         </Marker>

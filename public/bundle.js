@@ -21549,6 +21549,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var imageArray = ['images/biggie.jpg', 'images/child.jpeg', 'images/einstein.jpeg', 'images/cookie.jpeg', 'images/evolve.jpeg', 'images/eyeball.jpg', 'images/fox.jpg', 'images/future.jpeg', 'images/jayz.jpeg', 'images/lollipop/jpeg', 'images/biggie.jpg'];
+	
 	var MainMap = function (_Component) {
 	  _inherits(MainMap, _Component);
 	
@@ -21619,33 +21621,6 @@
 	        });
 	      });
 	    }
-	
-	    // handleFormSubmit(event) {
-	    //   console.log('event value', this.state.formValue)
-	    //   console.log(event)
-	    //   event.preventDefault();
-	
-	    //   const value = this.state.formValue;
-	    //   axios.post('/api', {content: value})
-	    //   .then(response => {
-	    //     const markerData = response.data;
-	    //     const nextMarkers = markerData.map(markerObject => {
-	    //       const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
-	    //       const content = markerObject.content ? markerObject.content : null
-	    //       return {
-	    //         id: markerObject.id,
-	    //         position: latLng,
-	    //         content: content
-	    //       }
-	    //   })
-	    //     this.setState({
-	    //       markers: nextMarkers
-	    //     })
-	    //     console.log(this.state.markers)
-	    //   })
-	
-	    // }
-	
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(event) {
@@ -21688,6 +21663,9 @@
 	                'Submit'
 	              )
 	            );
+	          } else {
+	            marker.imageUrl = imageArray[Math.floor(Math.random() * 10)];
+	            console.log(imageArray[Math.floor(Math.random() * 10)]);
 	          }
 	          console.log(marker);
 	          return marker;
@@ -21812,7 +21790,16 @@
 	          { onCloseClick: function onCloseClick() {
 	              return props.onMarkerClose(marker);
 	            } },
-	          _react2.default.createElement(
+	          marker.imageUrl ? _react2.default.createElement(
+	            "div",
+	            { id: "infowindow" },
+	            _react2.default.createElement("img", { src: marker.imageUrl }),
+	            _react2.default.createElement(
+	              "p",
+	              { id: "description" },
+	              marker.content
+	            )
+	          ) : _react2.default.createElement(
 	            "div",
 	            null,
 	            marker.content

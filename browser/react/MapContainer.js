@@ -7,7 +7,7 @@ import {
   Component,
 } from "react";
 
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 import Helmet from "react-helmet";
 
@@ -17,6 +17,20 @@ import {
   InfoWindow,
   Marker,
 } from "react-google-maps";
+
+const imageArray = [
+  'images/biggie.jpg',
+  'images/child.jpeg',
+  'images/einstein.jpeg',
+  'images/cookie.jpeg',
+  'images/evolve.jpeg',
+  'images/eyeball.jpg',
+  'images/fox.jpg',
+  'images/future.jpeg',
+  'images/jayz.jpeg',
+  'images/lollipop/jpeg',
+  'images/biggie.jpg'
+]
 
 export default class MainMap extends Component {
 
@@ -42,6 +56,7 @@ export default class MainMap extends Component {
     axios.get('/api')
       .then(response => {
         const markerData = response.data;
+        console.log(response.data)
         const nextMarkers = markerData.map(markerObject => {
           const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
           const content = markerObject.content ? markerObject.content : null
@@ -81,32 +96,6 @@ export default class MainMap extends Component {
     })
   }
 
-  // handleFormSubmit(event) {
-  //   console.log('event value', this.state.formValue)
-  //   console.log(event)
-  //   event.preventDefault();
-
-  //   const value = this.state.formValue;
-  //   axios.post('/api', {content: value})
-  //   .then(response => {
-  //     const markerData = response.data;
-  //     const nextMarkers = markerData.map(markerObject => {
-  //       const latLng = {lat: Number(markerObject.latitude), lng: Number(markerObject.longitude)}
-  //       const content = markerObject.content ? markerObject.content : null
-  //       return {
-  //         id: markerObject.id,
-  //         position: latLng,
-  //         content: content
-  //       }
-  //   })
-  //     this.setState({
-  //       markers: nextMarkers
-  //     })
-  //     console.log(this.state.markers)
-  //   })
-
-  // }
-
   handleChange(event) {
   	this.setState({formValue: event.target.value})
   }
@@ -123,17 +112,22 @@ export default class MainMap extends Component {
      this.setState({
        markers: this.state.markers.map(marker => {
          if (marker === targetMarker) marker.showInfo = true
-         if (!marker.infoContent) {
-          marker.infoContent = (
+         if (!marker.content) {
+          marker.content = (
             <form onSubmit={(event) => {
               console.log(event, marker.id)
               this.updatingContent(this.state.formValue, marker.id)
             }}>
+              <label>Description:</label>
               <input type="text" onChange={this.handleChange}/>
-              <input type="submit" value="Submit"/>
+              <Button type="submit">
+                Submit
+              </Button>
             </form>
-            )
-         }
+            )} else {
+            marker.imageUrl = imageArray[Math.floor(Math.random() * 10)]
+            console.log(imageArray[Math.floor(Math.random() * 10)])
+          }
          console.log(marker)
          return marker;
       })
@@ -150,7 +144,7 @@ export default class MainMap extends Component {
         return {
           id: markerObject.id,
           position: latLng,
-          infoContent: content
+          content: content
         }
       })
       this.setState({

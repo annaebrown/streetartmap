@@ -27,3 +27,12 @@ input {
 	margin-bottom:12px !important;
     box-sizing: border-box;
 }
+
+#infowindow {
+	display: block;
+	float: left;
+}
+
+#description {
+	margin-top: 8px;
+}
